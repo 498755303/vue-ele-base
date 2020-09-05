@@ -1,0 +1,67 @@
+@prefix: cas-select-panel;
+
+.@{prefix} {
+  background-color: #fff;
+  border: 1px solid #dee4f5;
+  border-radius: 2px;
+  height: 100%;
+}
+
+.@{prefix}__header {
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0;
+  border-bottom: 1px solid #dee4f5;
+  background-color: #fafbfe;
+  font-size: 14px;
+  padding: 0 12px;
+  line-height: 36px;
+
+  .@{prefix}__title {
+    flex: 1
+  }
+
+  .@{prefix}__title-operate {
+    display: flex;
+    justify-content: space-between;
+
+    .@{prefix}__clear {
+      color: blue;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+  }
+}
+
+
+
+.@{prefix}__content {
+  padding: 10px;
+  overflow: auto;
+  height: calc(100% - 48px);
+  box-sizing: border-box;
+}
+
+.@{prefix}__item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  background: #f8f8f8;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 13px;
+
+  .@{prefix}__item-text {
+    flex: 1;
+  }
+
+  .@{prefix}__item-operate {
+    display: flex;
+    justify-content: space-between;
+
+    .@{prefix}__item-remove {
+      cursor: pointer;
+      margin-left: 15px;
+    }
+  }
+}

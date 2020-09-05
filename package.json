@@ -1,0 +1,123 @@
+{
+  "name": "vue-ele-ts-base",
+  "version": "1.0.0",
+  "private": false,
+  "author": "hl <498755303@qq.com.com>",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service lint && vue-cli-service build",
+    "lint": "vue-cli-service lint --fix",
+    "build:dll": "vue-cli-service build --report-json --report",
+    "build:deploy": "vue-cli-service lint && vue-cli-service build --mode deploy --dest dist-deploy",
+    "build:test": "vue-cli-service lint && vue-cli-service build --mode test --dest dist-test",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0",
+    "dll": "webpack -p --progress --config ./webpack.dll.conf.js",
+    "sentry-clear": "sentry-cli releases -o orgName -p projectName files staging@online delete --all",
+    "sentry-clear:deploy": "sentry-cli releases -o orgName -p projectName files staging@deploy delete --all",
+    "serve:online": "vue-cli-service serve --mode production",
+    "serve:deploy": "vue-cli-service serve --mode deploy",
+    "styleguide": "vue-cli-service styleguidist",
+    "styleguide:build": "vue-cli-service styleguidist:build --unhandled-rejections=strict",
+    "test:cov": "vue-cli-service test:unit --coverage",
+    "test:unit": "vue-cli-service test:unit"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@riophae/vue-treeselect": "^0.4.0",
+    "@sentry/cli": "1.37.2",
+    "@sentry/webpack-plugin": "1.6.2",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "vue": "^2.6.11",
+    "axios": "^0.18.0",
+    "vuex": "^3.1.2",
+    "vue-router": "^3.1.3",
+    "vue-bus": "^1.2.1",
+    "ele-pro-hl": "^1.0.0",
+    "af-table-column": "^1.0.3",
+    "video.js": "^7.6.6",
+    "vue-clipboard2": "^0.2.1",
+    "vue-contextmenu": "^1.5.9",
+    "vue-preview": "^1.1.3",
+    "vue-video-player": "^5.0.2",
+    "vuedraggable": "^2.23.2",
+    "vuescroll": "^4.9.0-beta.18",
+    "js-cookie": "^2.2.0",
+    "async-validator": "^3.2.3",
+    "core-js": "^3.4.4",
+    "localforage": "^1.7.4",
+    "localforage-driver-memory": "^1.0.5",
+    "lodash": "^4.17.19",
+    "moment": "^2.24.0",
+    "v-click-outside-x": "^4.0.1",
+    "raven-js": "^3.27.0",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "hard-source-webpack-plugin": "^0.13.1",
+    "mini-css-extract-plugin": "^0.4.3",
+    "webpack": "^4.41.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-unit-jest": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "add-asset-html-webpack-plugin": "3.1.3",
+    "babel-eslint": "^10.0.3",
+    "clean-webpack-plugin": "1.0.1",
+    "compression-webpack-plugin": "^3.1.0",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-typescript": "^0.14.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "husky": "^4.2.5",
+    "i": "^0.3.6",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "mockjs": "^1.1.0",
+    "postcss-pxtorem": "^4.0.1",
+    "pre-commit": "^1.2.2",
+    "pre-push": "^0.1.1",
+    "terser-webpack-plugin": "^2.3.1",
+    "ts-loader": "^6.0.4",
+    "tslint": "^5.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-loader": "^3.5.4",
+    "typescript": "^3.5.2",
+    "typescript-eslint-parser": "^22.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "vue-cli-plugin-styleguidist": "^4.31.1",
+    "vue-loader": "^15.7.1",
+    "vue-property-decorator": "^8.2.1",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-bundle-analyzer": "^3.0.2",
+    "webpack-cli": "3.2.3",
+    "webpack-sentry-plugin": "^1.16.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js,vue}": [
+      "vue-cli-service lint --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/498755303/vue-ele-base.git"
+  }
+}

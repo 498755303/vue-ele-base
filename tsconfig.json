@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    // 编译目标平台
+    "target": "es5",
+    // 输出目录
+    "outDir": "./dist/",
+    // 添加需要的解析的语法，否则TS会检测出错。
+    "lib": ["es5",
+      "es2015",
+      "es2016",
+      "es2017",
+      "es2018",
+      "dom"],
+    // 模块的解析
+    "moduleResolution": "node",
+    // 指定生成哪个模块系统代码
+    "module": "commonjs",
+    // "module": "esnext",
+    // 在表达式和声明上有隐含的any类型时报错
+    "noImplicitAny": false,
+    // 把 ts 文件编译成 js 文件的时候，同时生成对应的 map 文件
+    "sourceMap": true,
+    // 允许编译javascript文件
+    "allowJs": true,
+    "checkJs": false,
+    "alwaysStrict": false,
+    // 指定基础目录
+    "baseUrl": "./",
+    // 启用装饰器
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    // 移除注释
+    "removeComments": false,
+    "pretty": true,
+    // 是相对于"baseUrl"进行解析
+    "paths": {
+      "vue": ["node_modules/vue/types"],
+      "@/*": ["src/*"]
+    },
+    "plugins": [{
+      "name": "typescript-deno-plugin",
+      "enable": true, // default is `true`
+      "importmap": "import_map.json"
+    }]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/mixin/*"
+  ]
+}

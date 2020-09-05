@@ -1,0 +1,27 @@
+stages:
+  - build
+
+base-build:
+  stage: build
+  script:
+    - npm install
+    - npm run sentry-clear
+    - echo "build project start"
+    - npm run build
+    - echo "build project end"
+    - echo "backup project......"
+    - if [ -d "/project-dir/back" ]; then
+    - rm -rf /project-dir/back/*
+    - cd /project-dir
+    - if [ $(ls | grep -v '^back$' | wc -l) -gt 0 ]; then mv $(ls | grep -v '^back$') ./back/;fi
+    - fi
+    - cd /home/gitlab-runner/builds/xxx/0/xxx//project-dir
+    - echo "backup finished"
+    - echo "deploy project......"
+    - mv dist/* /project-dir
+    - echo "deploy finished"
+  tags:
+    - base_build_runner
+  only:
+    - master
+

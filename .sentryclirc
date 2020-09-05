@@ -1,0 +1,7 @@
+[defaults]
+org=orgName
+project=projectName
+url=sentryUrl
+
+[auth]
+token=sentryToken
