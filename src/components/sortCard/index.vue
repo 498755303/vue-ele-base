@@ -6,20 +6,28 @@
            :key="item.value"
            @click.stop="_clickCell(item.value)">
         {{ item.label }}
-        <span class="caret-wrapper">
+        <span class="caret-wrapper" v-if="!simpleSort">
           <i class="sort-caret ascending" @click.stop="_clickSort(item.value,2)"></i>
           <i class="sort-caret descending" @click.stop="_clickSort(item.value,1)"></i>
         </span>
       </div>
     </template>
   </div>
-
 </template>
 
 <script>
+/**
+ * 排序组件
+ * @author HL
+ * @version v1
+ * @displayName 排序组件
+ */
 export default {
   name: "index.vue",
   props: {
+    /**
+     * 默认数据
+     */
     defaultData: {
       type: Object,
       default() {
@@ -29,22 +37,21 @@ export default {
         };
       }
     },
+    /**
+     * 数据源
+     */
     data: {
       type: Array,
-      default() {
-        return [
-          {
-            label: "首次发现",
-            id: 1,
-            value: "first"
-          },
-          {
-            label: "二次发现",
-            id: 2,
-            value: "second"
-          }
-        ];
-      }
+      required: true
+    },
+    /**
+     * 是否简单排序
+     * @value true,false
+     * @description 简单排序只存在降序和不排序
+     */
+    simpleSort: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -59,36 +66,51 @@ export default {
     _curClass(key) {
       const res = {};
       if (this.orderField === key) {
-        switch (this.orderType) {
-        case 1:
-          res["descending"] = true;
-          break;
-        case 2:
-          res["ascending"] = true;
-          break;
-        default:
-          break;
+        if (this.simpleSort) {
+          res["active"] = true;
+        } else {
+          switch (this.orderType) {
+            case 1:
+              res["descending"] = true;
+              break;
+            case 2:
+              res["ascending"] = true;
+              break;
+            default:
+              break;
+          }
         }
       }
       return res;
     },
-    // 外部点击
     _clickCell(key) {
-      if (this.orderField !== key) {
-        this.orderType = 0;
-      }
-      this.orderField = key;
-      if (this.orderType <= 0) {
-        this.orderType = 2;
+      if (this.simpleSort) {
+        if (this.orderField !== key) {
+          this.orderType = 1;
+          this.orderField = key;
+        } else {
+          this.orderType = Math.abs(this.orderType - 1);
+          this.orderField = "";
+        }
       } else {
-        this.orderType--;
+        if (this.orderField !== key) {
+          this.orderType = 0;
+        }
+        if (this.orderType <= 0) {
+          this.orderType = 2;
+        } else {
+          this.orderType--;
+        }
+        this.orderField = key;
       }
+
       this.outEvent();
     },
     // 升降序点击
     _clickSort(key, t) {
       this.orderField = key;
       this.orderType = t;
+      this.outEvent();
     },
     // 对外暴露事件
     outEvent() {
@@ -100,6 +122,16 @@ export default {
         orderField: this.orderField,
         orderType: this.orderType
       });
+    },
+    /**
+     * 获取当前排序结果
+     * @public
+     */
+    getCurOrder() {
+      return {
+        orderField: this.orderField,
+        orderType: this.orderType
+      };
     }
   }
 };
@@ -108,6 +140,7 @@ export default {
 <style scoped lang="less">
 @baseW: 100px;
 @baseH: 40px;
+@primaryC: #409EFF;
 @borderC: #f0f0f0;
 @hoverC: #eef4f9;
 .adesk-sort-card__item {
@@ -123,6 +156,10 @@ export default {
 
   &:hover {
     background-color: @hoverC;
+  }
+
+  &.active {
+    color: @primaryC;
   }
 
   &:nth-child(2n-1) {
