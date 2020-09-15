@@ -75,6 +75,7 @@
  * @displayName 复选表单项v2
  */
 export default {
+  name: "mutipleFilterV2",
   props: {
     /**
      * 标题

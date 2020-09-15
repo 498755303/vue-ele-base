@@ -14,7 +14,9 @@
 </template>
 <script>
 import casderView from '@/components/cascaderPanel/v2_horizontal/cascaderPanel/index.js';
+
 export default {
+  name: "demo",
   data() {
     return {
       auths: [

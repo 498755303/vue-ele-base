@@ -62,6 +62,7 @@
 </template>
 <script>
 export default {
+  name: "collapse-new",
   data() {
     return {
       visiblepop: false,

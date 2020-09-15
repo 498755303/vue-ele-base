@@ -25,6 +25,7 @@
 import searchIpt from '@/components/input/searchinput';
 import columns from './cascaderPanel/index';
 export default {
+  name: "columns-v3",
   data() {
     return {
       searchData: [],

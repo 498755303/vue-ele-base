@@ -21,6 +21,7 @@
 </template>
 <script>
 export default {
+  name: "columns-v1",
   data () {
     return {
       selectData: [], // 选中的值

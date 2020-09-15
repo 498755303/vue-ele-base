@@ -83,6 +83,7 @@ import columns from './v4_base/cascaderPanel/panel';
 import SelectPanel from "./v4_base/selectPanel/index";
 
 export default {
+  name: "columns-v4",
   props: {
     appendToBody: {
       type: Boolean,

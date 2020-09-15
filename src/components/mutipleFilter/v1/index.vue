@@ -39,6 +39,7 @@
  * @displayName 复选表单项v1
  */
 export default {
+  name: "mutipleFilterV1",
   props: {
     /**
      * 标题

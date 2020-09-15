@@ -49,7 +49,7 @@ const backDelCode = 8;
 const leftKeyCode = 37;
 const rightKeyCode = 39;
 export default {
-  name: "index.vue",
+  name: "smartInput.vue",
   props: {
     /**
      * 绑定值,支持v-model

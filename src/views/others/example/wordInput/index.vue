@@ -1,31 +1,32 @@
 <template>
   <div class="vue-ele-ts-base__word-input">
-    <word-input v-model="value"
-                :showLimit="true"
-                :maxLen="20"
-                :setting="setting"
-                :doubleCodeAble="true"
-                :defaultShowLen="4"
-                :wordList="wordList"
-                :wordSetting="wordSetting"
-                @loadMore="loadMore"></word-input>
-    <word-input v-model="value2"
-                :showLimit="true"
-                :maxLen="20"
-                :setting="setting"
-                :doubleCodeAble="true"
-                :defaultShowLen="4"
-                :wordList="wordList"
-                :wordSetting="wordSetting"
-                @loadMore="loadMore"></word-input>
+    <vue-smart-input v-model="value"
+                     :showLimit="true"
+                     :maxLen="20"
+                     :setting="setting"
+                     :doubleCodeAble="true"
+                     :defaultShowLen="4"
+                     :wordList="wordList"
+                     :wordSetting="wordSetting"
+                     @loadMore="loadMore"></vue-smart-input>
+    <vue-smart-input v-model="value2"
+                     :showLimit="true"
+                     :maxLen="20"
+                     :setting="setting"
+                     :doubleCodeAble="true"
+                     :defaultShowLen="4"
+                     :wordList="wordList"
+                     :wordSetting="wordSetting"
+                     @loadMore="loadMore"></vue-smart-input>
     <more-dialog ref="moreDialogRef" @insert="insert"></more-dialog>
   </div>
 
 </template>
 
 <script>
-import WordInput from "@/components/input/smartinput/v2/index";
+import VueSmartInput from "@/components/input/smartinput/v2/index";
 import MoreDialog from "@/views/others/example/wordInput/chooseDialog.vue";
+
 import {wordPackage} from "@/config/dataBase/example";
 import {Enums} from "@/util/tools/enum.ts";
 
@@ -97,8 +98,8 @@ export default {
     }
   },
   components: {
-    WordInput,
-    MoreDialog
+    MoreDialog,
+    VueSmartInput
   }
 }
 </script>

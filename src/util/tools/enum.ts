@@ -29,8 +29,8 @@ interface EnumsData {
 }
 
 export class Enums {
-  database: object[];
-  _groupMap: object;
+  database: any[];
+  _groupMap: any;
 
   constructor(arr: EnumsData[]) {
     if (emptyListOrEmpty(arr)) {
@@ -87,7 +87,7 @@ export class Enums {
   }
 
   // 分组数据
-  group(groupName: string): object[] {
+  group(groupName: string): any[] {
     const result = [];
     this.database.forEach((item) => {
       if (item['group'] && !emptyListOrEmpty(item['group'])) {
@@ -100,7 +100,7 @@ export class Enums {
   }
 
   // 多分组数据(未去重)
-  groups(groupNames: string[]): object[] {
+  groups(groupNames: string[]): any[] {
     if (!this._groupMap || JSON.stringify(this._groupMap) === '{}') {
       const groupMap = {}
       this.database.forEach((item) => {

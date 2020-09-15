@@ -41,6 +41,7 @@
 import searchIpt from '@/components/input/searchinput';
 import columns from '@/components/columns/v3_base/cascaderPanel/index';
 export default {
+  name: "columns-v3",
   props: {
     appendToBody: {
       type: Boolean,

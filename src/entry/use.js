@@ -8,9 +8,7 @@ import vueContextmenu from 'vue-contextmenu';
 // 剪贴板
 import VueClipboard from 'vue-clipboard2';
 import VueBus from "vue-bus";
-
 VueClipboard.config.autoSetContainer = true;
-
 export default function usePlugin(Vue) {
   Vue.use(vuescroll);
   Vue.use(VueBus);
