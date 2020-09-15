@@ -20,7 +20,7 @@ export class StringUtil {
    * @param text 字符串
    */
   public static toLowerCase(text: string): string {
-    return text.replace(/([A-Z])/g, "_$1").toLowerCase();
+    return text.replace(/([A-Z])/g, '_$1').toLowerCase();
   }
 
   /**
@@ -40,16 +40,16 @@ export class StringUtil {
    * @return 长度
    */
   public static calcStringWidth(str: string): number {
-    const reg = new RegExp("[^\x00-\xff]", "g");
+    const reg = new RegExp('[^\x00-\xff]', 'g');
     const doubleStr = str.match(reg);
     let doubleStrLen = doubleStr ? doubleStr.length : 0;
-    const othLen = (str || "").length - doubleStrLen;
+    const othLen = (str || '').length - doubleStrLen;
     return doubleStrLen + Math.ceil(othLen / 2);
   }
 
   // 半角转全角
   public static toDBC(str: string): string {
-    var tmp = "";
+    var tmp = '';
     for (var i = 0; i < str.length; i++) {
       if (str.charCodeAt(i) == 32) {
         tmp = tmp + String.fromCharCode(12288);
@@ -60,9 +60,10 @@ export class StringUtil {
     }
     return tmp;
   }
+
   // 全角转半角
   public static toCDB(str: string): string {
-    var tmp = "";
+    var tmp = '';
     for (var i = 0; i < str.length; i++) {
       if (str.charCodeAt(i) == 12288) {
         tmp += String.fromCharCode(str.charCodeAt(i) - 12256);
@@ -75,5 +76,15 @@ export class StringUtil {
       }
     }
     return tmp;
+  }
+
+  /**
+   * 字符串指定位置插入
+   * @param oriStr 原始字符串
+   * @param start 指定位置
+   * @param str 新插入字符串
+   */
+  public static splice(oriStr: string, start: number, str: string) {
+    return oriStr.slice(0, start) + str + oriStr.slice(start);
   }
 }

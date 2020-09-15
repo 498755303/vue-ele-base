@@ -38,7 +38,7 @@
 </template>
 <script>
 import moreWords from './chooseDialog.vue';
-import { CopyPropertyUtil } from '@/util/tools/CopyPropertyUtil.ts';
+import {CopyPropertyUtil} from '@/util/tools/CopyPropertyUtil.ts';
 
 const noop = _ => _;
 export default {
@@ -199,9 +199,9 @@ export default {
         let inputLength = this.inputVal.length;
         this.curPosition = this.curPosition || [inputLength, inputLength];
         let resInsert = this.privateInsertWords(
-          this.curPosition[0],
-          this.curPosition[1],
-          item[this.property.label]
+            this.curPosition[0],
+            this.curPosition[1],
+            item[this.property.label]
         );
         let cacheTmp = {
           start: this.curPosition[0],
@@ -468,8 +468,8 @@ export default {
         });
 
         tmpStr = tmpStr.slice(
-          matchVal.index + matchVal[0].length,
-          tmpStr.length
+            matchVal.index + matchVal[0].length,
+            tmpStr.length
         );
         sliceLen = sliceLen + matchVal[0].length + matchVal.index;
         matchVal = tmpStr.match(reg);
@@ -524,12 +524,12 @@ export default {
         tipInfo = '输入不能存在特殊字符';
       } else {
         if (
-          this.inputLen < this.settings.minLen ||
+            this.inputLen < this.settings.minLen ||
             this.inputLen > this.settings.maxLen
         ) {
           error = true;
           tipInfo = `输入字符长度应在${this.settings.minLen}-${
-            this.settings.maxLen
+              this.settings.maxLen
           }范围内`;
         } else {
           error = false;
@@ -590,7 +590,7 @@ export default {
       if (len) {
         this._calcLength();
         if (
-          this.inputLen < this.settings.minLen ||
+            this.inputLen < this.settings.minLen ||
             this.inputLen > this.settings.maxLen
         ) {
           this.tipWord = `输入字符长度应在${this.settings.minLen}-${this.settings.maxLen}之间`;
@@ -598,9 +598,9 @@ export default {
         } else {
           let matchRes = this.privateMatch(this.inputVal, this.bagReg);
           let lenRes = this.privateGenerateLenData(
-            matchRes,
-            this.cache,
-            this.inputVal
+              matchRes,
+              this.cache,
+              this.inputVal
           );
           if (lenRes.error) {
             this.tipWord = lenRes.tipInfo;
@@ -666,7 +666,7 @@ export default {
       }
     }
   },
-  components: { moreWords },
+  components: {moreWords},
   mounted() {
     this.inputEl = document.getElementById(this.inputId);
   }

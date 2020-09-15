@@ -28,9 +28,9 @@ interface EnumsData {
   desc?: string;
 }
 
-
 export class Enums {
   database: object[];
+  _groupMap: object;
 
   constructor(arr: EnumsData[]) {
     if (emptyListOrEmpty(arr)) {
@@ -96,6 +96,32 @@ export class Enums {
         }
       }
     });
+    return result;
+  }
+
+  // 多分组数据(未去重)
+  groups(groupNames: string[]): object[] {
+    if (!this._groupMap || JSON.stringify(this._groupMap) === '{}') {
+      const groupMap = {}
+      this.database.forEach((item) => {
+        if (item['group'] && !emptyListOrEmpty(item['group'])) {
+          if (!groupMap[item['group']] || emptyListOrEmpty(groupMap[item['group']])) {
+            groupMap[item['group']] = [];
+          }
+          groupMap[item['group']].push(item);
+        }
+      });
+      this._groupMap = groupMap;
+    }
+    let result = [];
+    if (!emptyListOrEmpty(groupNames)) {
+      groupNames.forEach(item => {
+        const list = this._groupMap[item];
+        if (!emptyListOrEmpty(list)) {
+          result = result.concat(list);
+        }
+      })
+    }
     return result;
   }
 }

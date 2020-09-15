@@ -9,11 +9,15 @@
       <el-tab-pane label="排序组件" name="sortCardTab">
         <sort-card-example></sort-card-example>
       </el-tab-pane>
+      <el-tab-pane label="词包组件" name="wordInputTab">
+        <word-input-example></word-input-example>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
 import SortCardExample from "@/views/others/example/sortCard";
+import WordInputExample from "@/views/others/example/wordInput";
 import {Enums} from "@/util/tools/enum.ts";
 import {Validate} from "@/util/tools/validate.ts";
 import {CopyPropertyUtil} from "@/util/tools/CopyPropertyUtil.ts";
@@ -38,7 +42,7 @@ export default {
   data() {
     return {
       copyData: null,
-      activeName: "sortCardTab"
+      activeName: "wordInputTab"
     };
   },
   methods: {
@@ -49,7 +53,8 @@ export default {
     }
   },
   components: {
-    SortCardExample
+    SortCardExample,
+    WordInputExample
   },
   created() {
     this.demoHandle()
