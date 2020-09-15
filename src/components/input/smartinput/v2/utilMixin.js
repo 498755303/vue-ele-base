@@ -99,7 +99,8 @@ export default {
                             start: index,
                             end: str.length - 1 + index,
                             label: wordItem[this.wordSetting.label],
-                            value: wordItem[this.wordSetting.key]
+                            value: wordItem[this.wordSetting.key],
+                            length: wordItem[this.wordSetting.length]
                         })
                         copyStr = copyStr.replace(str, new Array(str.length).fill(".").join(""))
                     }
@@ -271,9 +272,7 @@ export default {
             return {
                 pass: true
             };
-        },
-
-
+        }
     },
     created() {
         this._generateWordMap();

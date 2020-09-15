@@ -9,7 +9,6 @@
              :size="setting.size || 'normal'"
              :style="setting.style"
              autocomplete="off"
-             @input="_inputHandle"
              @select="_selectHandle"
              @keyup="_keyupHandle"
              @click="_clickHandle"
@@ -208,7 +207,6 @@ export default {
           this.inputVal = this._spliceStr(this.inputVal, curPosition[0], curPosition[1], label)
         }
       }
-      this.valid();
       /**
        * 添加词包事件
        * @type {item} 词包项
@@ -224,11 +222,6 @@ export default {
       this.$emit('loadMore', (item) => {
         item && this._addWord(item)
       });
-    },
-    // 输入值变化事件
-    _inputHandle() {
-      console.log(`%c input event `, 'color:#F56C6C;');
-      this.valid();
     },
     // 选中处理,起始为0不处理,其余包含词包或在词包中,光标滞后
     _selectHandle(e) {
@@ -304,7 +297,7 @@ export default {
        * blur事件
        * @type {e} 事件
        */
-      this.$emit('blur', e);
+      this.$emit('blur', this.getCurWords());
     },
     /**
      * 校验
@@ -340,11 +333,18 @@ export default {
     clearValidate() {
       this.errorStr = "";
     },
+    /**
+     * 获取当前包含的词包数据
+     */
+    getCurWords() {
+      return this._findWordIndex();
+    },
     // 提交错误信息
     _errorEmit(msg, tipType) {
       /**
        * 校验错误事件
        * @type {msg}:string 错误信息
+       * @type {tipType}:boolean 提示类型true:已经展示错误信息 false:未展示
        */
       this.$emit("error", msg, tipType)
     }
@@ -362,8 +362,16 @@ export default {
     }
   },
   watch: {
-    inputVal(nv) {
-      this.$emit("change", nv)
+    inputVal(nv, ov) {
+      if (nv !== ov) {
+        this.$emit("change", nv);
+        this.valid()
+      }
+    },
+    value(nv, ov) {
+      if (nv !== ov) {
+        this.inputVal = nv;
+      }
     }
   }
 }

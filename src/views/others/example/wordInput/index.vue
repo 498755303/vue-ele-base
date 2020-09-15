@@ -1,5 +1,6 @@
 <template>
   <div class="vue-ele-ts-base__word-input">
+    <el-button type="primary" @click.stop="test">测试回填数据</el-button>
     <vue-smart-input v-model="value"
                      :showLimit="true"
                      :maxLen="20"
@@ -85,6 +86,9 @@ export default {
     }
   },
   methods: {
+    test(){
+      this.value2 = "测试回填{时间}test"
+    },
     loadMore(cb) {
       this.wordCbCache = cb;
       this.$refs.moreDialogRef.openDialog({
