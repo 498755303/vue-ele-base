@@ -35,7 +35,7 @@ export default {
             const cache = this._findWordIndex();
             if (cache && cache.length) {
                 cache.forEach(item => {
-                    copyStr = copyStr.replace(item.value, '');
+                    copyStr = copyStr.replace(this._generateWordLabel(item.label), '');
                     wordLen += item.length;
                 });
             }
