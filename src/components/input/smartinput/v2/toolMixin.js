@@ -32,10 +32,11 @@ export default {
         _calcLength() {
             let copyStr = this.inputVal;
             let wordLen = 0;
-            if (this.cache && this.cache.length) {
-                this.cache.forEach(item => {
+            const cache = this._findWordIndex();
+            if (cache && cache.length) {
+                cache.forEach(item => {
                     copyStr = copyStr.replace(item.value, '');
-                    wordLen += item.len;
+                    wordLen += item.length;
                 });
             }
             if (this.doubleCodeAble) {
