@@ -34,7 +34,25 @@ export class Entry {
       const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
       const i = Math.floor(Math.log(size) / Math.log(k));
       return (size / k ** i).toPrecision(3) + ' ' + sizes[i];
-    })
+    });
+    // 枚举展示
+    Vue.filter('enum2Label', (val, enumData, placeholder) => {
+      if (!val) {
+        return placeholder || '-';
+      }
+      const list = val.split(',');
+      if (list && list.length > 1) {
+        const strList = [];
+        list.forEach(v => {
+          if (enumData[v]) {
+            strList.push(enumData[v].label);
+          }
+        })
+        return strList && strList.length ? strList.join(',') : placeholder || '-';
+      } else {
+        return enumData[val] ? enumData[val].label : placeholder || '-';
+      }
+    });
   }
 
   // 原型链

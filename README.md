@@ -56,3 +56,8 @@ git rm --cached \*\*
 chmod -R 777 /project-dir
 
 
+### 版本更新说明
+#### 1.0.1 
+* 增加单页应用前进后退,按照url参数请求数据的mixin.使用时需将监听参数放入query,详见mixin目录
+* 增加枚举展示的全局filter
+* 重构了CopyPropertyUtil逻辑

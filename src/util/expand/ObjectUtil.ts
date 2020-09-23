@@ -47,4 +47,30 @@ export class ObjectUtil {
     })
   }
 
+  /**
+   * 浅比较两个对象是否具有相同Key
+   * @param o1 对象1
+   * @param o2 对象2
+   * @return boolean
+   */
+  public static equal(o1: Object, o2: Object, ignore?: string[]): boolean {
+    // 当前Object对象
+    const propsO1 = Object.getOwnPropertyNames(o1);
+    // 要比较的另外一个Object对象
+    const propsO2 = Object.getOwnPropertyNames(o2);
+    if (propsO1.length != propsO2.length) {
+      return false;
+    }
+    const hasIgnore = ignore && ignore.length;
+    for (let i = 0, max = propsO1.length; i < max; i++) {
+      const propName = propsO1[i];
+      if (!(hasIgnore && ignore.indexOf(propName) > -1)) {
+        if (o1[propName] !== o2[propName]) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
 }

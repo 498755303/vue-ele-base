@@ -43,10 +43,14 @@ export class CopyPropertyUtil {
    * 根据原始数据赋值目标数据
    * @param src 元数据
    * @param tar 目标数据
+   * @param ignore 忽略属性
    */
-  public static copyPropertiesBySrc(src: object, tar: object): void {
+  public static copyPropertiesBySrc(src: object, tar: object, ignore?: string[]): void {
+    const hasIgnore = ignore && ignore.length;
     Object.keys(src).forEach((k) => {
-      tar[k] = src[k]
+      if (!(hasIgnore && ignore.indexOf(k) > -1)) {
+        tar[k] = src[k]
+      }
     });
   }
 
@@ -68,20 +72,34 @@ export class CopyPropertyUtil {
    * copy 目标所有属性
    * @param src 原对象
    * @param tar 目标对象
+   * @param init 初始值,有则在为空时赋值
    * @param ignore 忽略属性
    * @param oriCase 元数据类型
+   * @param ignoreNull 是否忽略空值
    */
-  public static copyBytarget(
-    src: object,
-    tar: object,
+  private static copyBytargetBase(
+    src: Object,
+    tar: Object,
     ignore?: string[],
-    oriCase: string = 'upper'
+    init?: Object,
+    oriCase: string = 'upper',
+    ignoreNull: boolean = false
   ): void {
     const keys = tar['getOwnKeys'] ? tar['getOwnKeys']() : Object.keys(tar);
     keys.forEach((k) => {
       if (!(Validate.notEmptyList(ignore) && ignore.includes(k))) {
         const key = oriCase === 'lower' ? StringUtil.toLowerCase(k) : k;
-        src.hasOwnProperty(key) && (tar[k] = src[key]);
+        if (src.hasOwnProperty(key)) {
+          if (ignoreNull) {
+            Validate.isNotEmpty(src[key]) && (tar[k] = src[key]);
+          } else {
+            tar[k] = src[key];
+          }
+        } else {
+          if (!ignoreNull) {
+            (Validate.isNotEmpty(init) && init.hasOwnProperty(key)) && (tar[k] = init[key])
+          }
+        }
       }
     });
   }
@@ -93,19 +111,47 @@ export class CopyPropertyUtil {
    * @param ignore 忽略属性
    * @param oriCase 元数据类型
    */
-  public static copyBytargetIgnoreNull(
-    src: object,
-    tar: object,
+  public static copyBytarget(
+    src: Object,
+    tar: Object,
     ignore?: string[],
     oriCase: string = 'upper'
   ): void {
-    const keys = tar['getOwnKeys'] ? tar['getOwnKeys']() : Object.keys(tar);
-    keys.forEach((k) => {
-      const key = oriCase === 'lower' ? StringUtil.toLowerCase(k) : k;
-      if (src.hasOwnProperty(key) && Validate.isNotEmpty(src[key])) {
-        tar[k] = src[key];
-      }
-    });
+    CopyPropertyUtil.copyBytargetBase(src, tar, ignore, false, oriCase);
+  }
+
+  /**
+   * copy 目标所有属性
+   * @param src 原对象
+   * @param tar 目标对象
+   * @param ignore 忽略属性
+   * @param oriCase 元数据类型
+   */
+  public static copyBytargetIgnoreNull(
+    src: Object,
+    tar: Object,
+    ignore?: string[],
+    oriCase: string = 'upper'
+  ): void {
+    CopyPropertyUtil.copyBytargetBase(src, tar, ignore, false, oriCase, true);
+  }
+
+  /**
+   * copy 目标所有属性,没有使用默认值
+   * @param src 原对象
+   * @param tar 目标对象
+   * @param init 初始值配置
+   * @param ignore 忽略属性
+   * @param oriCase 元数据类型
+   */
+  public static copyBytargetForce(
+    src: Object,
+    tar: Object,
+    init: Object,
+    ignore?: string[],
+    oriCase: string = 'upper'
+  ): void {
+    CopyPropertyUtil.copyBytargetBase(src, tar, ignore, init, oriCase, false);
   }
 
 
